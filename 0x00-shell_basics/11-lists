@@ -1,0 +1,3 @@
+#!/bin/bash
+ls -a \n
+ls -lh /boot \n
