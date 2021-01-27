@@ -1,0 +1,3 @@
+#!/bin/bash
+Get-ChildItem /root/tmp/ -Filter *.html | Copy-Item -
+Destination /root/ -Force -PassThru \n
