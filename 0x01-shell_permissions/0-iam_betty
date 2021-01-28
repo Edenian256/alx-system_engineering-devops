@@ -1,2 +1,2 @@
 #!/bin/bash
-usermod -u betty edenian256 \n
+usermod -u betty root\n
