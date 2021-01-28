@@ -1,6 +1,2 @@
 #!/bin/bash
-<<<<<<< HEAD
-usermod -u 0 betty \n
-=======
 su betty
->>>>>>> ab13dcd6386d34813742c37729fef1abef370e9b
