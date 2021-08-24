@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
-# configure HAproxy
+# script that configures a new Ubuntu machine with HAproxy load balancer
 
-sudo apt-get -y update
-sudo apt-get -y upgrade
-sudo apt-get -y install haproxy
-sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original
-sudo sed -i "$ a\listen webapp 0.0.0.0:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 210-web-01 142.44.167.228:80 check\n\tserver 210-web-02 144.217.246.195:80 check" /etc/haproxy/haproxy.cfg
-sudo service haproxy start
+apt-get -y install --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.0
+apt-get -y update
+apt-get -y install haproxy=2.0.\*
+
+cat >> /etc/haproxy/haproxy.cfg << EOF
+frontend Local_Server
+	bind *:80
+	mode http
+	default_backend Web_Servers
+backend Web_Servers
+	balance roundrobin
+	mode http
+	server web-01 34.138.28.3:80 check
+	server web-02 34.138.208.167:80 check
+EOF
+
+service haproxy restart
